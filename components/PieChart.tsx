@@ -29,7 +29,6 @@ export const PieChartComponent = ({ data }: PieChartProps) => {
         <ResponsiveContainer width="100%" height={300}>
             <PieChart>
                 <Pie
-                    fontFamily='sans-serif'
                     data={data}
                     outerRadius={100}
                     fill="#8884d8"
