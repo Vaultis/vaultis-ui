@@ -27,6 +27,21 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+### Storybook
+Storybook is a tool for developing UI components in isolation, allowing developers to build, test, and showcase individual components without the need for a full application. To run Storybook in a project, you can follow these steps:
+
+Start Storybook using the command 
+
+```bash
+npm run storybook 
+# or
+yarn storybook
+```
+
+View your component stories in the Storybook UI at http://localhost:6006.
+
+That's it! With Storybook, you can develop and test your UI components in isolation, making it easier to build and maintain a robust UI system.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
