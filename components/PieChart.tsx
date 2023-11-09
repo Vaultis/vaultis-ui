@@ -12,14 +12,14 @@ interface SliceProps {
      * Indicates the amount allocated to a specific salary category
      */
     value: number;
-};
+}
 
 interface PieChartProps {
     /**
      * Pie chart data
      */
     data: SliceProps[];
-};
+}
 
 /**
  * Primary Pie Chart component for user interaction
