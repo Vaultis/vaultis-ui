@@ -12,6 +12,18 @@
   align-items: center;
 }
 
+.grid {
+width:100vw;
+    display: grid;
+    gap: 50px 50px;
+    grid-template-columns: auto auto auto;
+    align-items: start;
+    }
+
+.gridItem {
+vertical-align:bottom;
+}
+
 .footer {
   display: flex;
   flex: 1;
