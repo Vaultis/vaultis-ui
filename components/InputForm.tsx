@@ -39,7 +39,7 @@ const InputForm: React.FC = () => {
   };
 
   const labelClassName = "block text-sm font-medium leading-6 text-gray-900";
-  const inputClassName = "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500";
+  const inputClassName = "focus:ring focus:border-blue-500";
 
   const todayDate = new Date().toISOString().split('T')[0];
 
