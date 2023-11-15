@@ -1,96 +1,142 @@
-import React from 'react';
-import { useState, ChangeEvent, FormEvent } from 'react';
-import { TextField, Grid, Button, Typography } from '@mui/material';
-
-interface FormData {
-  price: string;
-  interestRate: string;
-  downPayment: string;
-  startYear: string;
-  yearlyPropTax: string;
-  mortgageLength: string;
-  monthlySalary: string;
-  monthlyExpenses: string;
-}
+// components/InputForm.tsx
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 
 const InputForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState({
     price: '',
     interestRate: '',
     downPayment: '',
-    startYear: '',
+    start: '',
     yearlyPropTax: '',
     mortgageLength: '',
     monthlySalary: '',
     monthlyExpenses: '',
   });
 
-  const handleChange = (field: keyof FormData, value: string) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [field]: value,
-    }));
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // Implement your mortgage calculation logic here
-    console.log('Form Data:', formData);
+    // Add mortgage calculation logic here
+    console.log('Form submitted with data:', formData);
   };
 
+  const labelClassName = "block text-sm font-medium leading-6 text-gray-900"
+  const inputClassName = "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+
+  const todayDate = new Date().toISOString().split('T')[0];
+
   return (
-    <form onSubmit={handleSubmit}>
-      <Grid container spacing={2}>
-        {/* First Column */}
-        <Grid item xs={12} md={4}>
-          <TextField
-            label="Price"
+    <div className="flex flex-col gap-y-6">
+      <form onSubmit={handleSubmit} className="max-w-xl mx-auto mt-8 grid sm:grid-cols-2 md:grid-cols-3 md:gap-6">
+        <label className={labelClassName} aria-required>
+          Price
+          <input
             type="number"
-            fullWidth
+            name="price"
             value={formData.price}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              handleChange('price', e.target.value)
-            }
+            onChange={handleChange}
+            className={inputClassName}
+            required
           />
-          {/* Add other fields for the first column */}
-        </Grid>
+        </label>
 
-        {/* Second Column */}
-        <Grid item xs={12} md={4}>
-          <TextField
-            label="Interest Rate"
+        <label className={labelClassName}>
+          Interest Rate (%)
+          <input
             type="number"
-            fullWidth
+            name="interestRate"
             value={formData.interestRate}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              handleChange('interestRate', e.target.value)
-            }
+            onChange={handleChange}
+            className={inputClassName}
+            required
           />
-          {/* Add other fields for the second column */}
-        </Grid>
+        </label>
 
-        {/* Third Column */}
-        <Grid item xs={12} md={4}>
-          <TextField
-            label="Down Payment"
+        <label className={labelClassName}>
+          Down Payment
+          <input
             type="number"
-            fullWidth
+            name="downPayment"
             value={formData.downPayment}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              handleChange('downPayment', e.target.value)
-            }
+            onChange={handleChange}
+            className={inputClassName}
+            required
           />
-          {/* Add other fields for the third column */}
-        </Grid>
+        </label>
 
-        {/* Submit Button */}
-        <Grid item xs={12}>
-          <Button variant="contained" color="primary" type="submit">
-            Calculate
-          </Button>
-        </Grid>
-      </Grid>
-    </form>
+        <label className={labelClassName}>
+          Start
+          <input
+            type="date"
+            name="start"
+            value={formData.start}
+            min={todayDate}
+            onChange={handleChange}
+            className={inputClassName}
+            required
+          />
+        </label>
+
+        <label className={labelClassName}>
+          Yearly Property Tax
+          <input
+            type="number"
+            name="yearlyPropTax"
+            value={formData.yearlyPropTax}
+            onChange={handleChange}
+            className={inputClassName}
+            required
+          />
+        </label>
+
+        <label className={labelClassName}>
+          Mortgage Length
+          <input
+            type="number"
+            name="mortgageLength"
+            value={formData.mortgageLength}
+            onChange={handleChange}
+            className={inputClassName}
+            required
+          />
+        </label>
+
+        <label className={labelClassName}>
+          Monthly Salary
+          <input
+            type="number"
+            name="monthlySalary"
+            value={formData.monthlySalary}
+            onChange={handleChange}
+            className={inputClassName}
+            required
+          />
+        </label>
+
+        <label className={labelClassName}>
+          Monthly Expenses
+          <input
+            type="number"
+            name="monthlyExpenses"
+            value={formData.monthlyExpenses}
+            onChange={handleChange}
+            className={inputClassName}
+            required
+          />
+        </label>
+      </form>
+
+      <input
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-md mx-auto block"
+        value="Calculate"
+        required
+      />
+    </div>
   );
 };
 

@@ -13,9 +13,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-           <h1 className={styles.title}>Welcome to Vaultis's Mortgage Calculator</h1>
-        <InputForm />
+      <main className="bg-gray-100 min-h-screen flex items-center justify-center">
+          <InputForm />
       </main>
 
       <footer className={styles.footer}>
