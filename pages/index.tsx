@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { CalculatorFormComponent } from '../components/CalculatorForm'
+import InputForm from '../components/InputForm'
 
 const Home: NextPage = () => {
   return (
@@ -15,11 +15,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
            <h1 className={styles.title}>Welcome to Vaultis's Mortgage Calculator</h1>
-        <CalculatorFormComponent/>
-
-
-
-
+        <InputForm />
       </main>
 
       <footer className={styles.footer}>
