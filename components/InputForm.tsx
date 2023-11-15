@@ -150,6 +150,7 @@ const InputForm: React.FC = () => {
       <button
         type="submit"
         className="max-w-xl mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+        onClick={handleSubmit}
       >
         Evaluate
       </button>
