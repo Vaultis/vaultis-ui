@@ -21,8 +21,21 @@ const InputForm: React.FC = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // Add mortgage calculation logic here
-    console.log('Form submitted with data:', formData);
+
+    const validationErrors: string[] = [];
+
+    Object.keys(formData).forEach((field: string) => {
+      if (formData[field as keyof typeof formData] === '') {
+        validationErrors.push(`${field} is required`);
+      }
+    });
+
+    if (validationErrors.length > 0) {
+      console.error('Form validation errors:', validationErrors);
+    } else {
+      // TODO: Add mortgage calculation logic here
+      console.log('Form submitted with data:', formData);
+    }
   };
 
   const labelClassName = "block text-sm font-medium leading-6 text-gray-900";
