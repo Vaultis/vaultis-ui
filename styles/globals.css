@@ -54,13 +54,3 @@ input[type="date"] {
   appearance: textfield;
   min-height: 1.2em;
 }
-
-input {
-  width: 100%;
-  padding: 0.5rem; /* Equivalent to p-2 in Tailwind */
-  border-width: 1px; /* Equivalent to border in Tailwind */
-  border-style: solid; /* Equivalent to border in Tailwind */
-  border-color: #e5e7eb; /* Equivalent to border-gray-300 in Tailwind */
-  border-radius: 0.375rem; /* Equivalent to rounded-md in Tailwind */
-  outline: none; /* Equivalent to focus:outline-none in Tailwind */
-}
