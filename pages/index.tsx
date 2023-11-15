@@ -13,7 +13,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="bg-gray-100 min-h-screen flex items-center justify-center">
+      <main className={styles.main}>
           <InputForm />
       </main>
 
