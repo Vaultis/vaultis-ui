@@ -35,6 +35,11 @@ const InputForm: React.FC = () => {
     } else {
       // TODO: Add mortgage calculation logic here
       console.log('Form submitted with data:', formData);
+      let monthlyInterest = (formData.interestRate/100)/12;
+      let numberOfPayments = formData.mortgageLength * 12;
+      let loanAmount = formData.price - formData.downPayment;
+      let monthlyPayment = (loanAmount * monthlyInterest) / (1-(1+monthlyInterest)**(-1*numberOfPayments))
+      console.log('Monthly Mortgage Payment calculated', monthlyPayment)
     }
   };
 
