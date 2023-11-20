@@ -39,12 +39,12 @@ const InputForm: React.FC<IInputFormProps> = ({ onSubmit }) => {
       let monthlyInterest = (formData.interestRate/100)/12;
       let numberOfPayments = formData.mortgageLength * 12;
       let loanAmount = formData.price - formData.downPayment;
-      let monthlyPayment = (loanAmount * monthlyInterest) / (1-(1+monthlyInterest)**(-1*numberOfPayments))
-      let totalMortgage = monthlyPayment * numberOfPayments
-      let totalInterest = totalMortgage - loanAmount
-      console.log('Monthly Mortgage', monthlyPayment)
-      console.log('Total Mortgage', totalMortgage)
-      console.log('Total Interest', TotalInterest)
+      let monthlyPayment = (loanAmount * monthlyInterest) / (1-(1+monthlyInterest)**(-1*numberOfPayments));
+      let totalMortgage = monthlyPayment * numberOfPayments;
+      let totalInterest = totalMortgage - loanAmount;
+      console.log('Monthly Mortgage', monthlyPayment);
+      console.log('Total Mortgage', totalMortgage);
+      console.log('Total Interest', TotalInterest);
     }
   };
 
