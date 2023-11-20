@@ -1,6 +1,7 @@
 // components/InputForm.tsx
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Tooltip from '@mui/material/Tooltip';
+import {mortgageAlgo} from '../utils/index';
 
 const InputForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -34,16 +35,7 @@ const InputForm: React.FC = () => {
       console.error('Form validation errors:', validationErrors);
     } else {
       // TODO: Add mortgage calculation logic here
-      console.log('Form submitted with data:', formData);
-      let monthlyInterest = (parseFloat(formData.interestRate)/100)/12;
-      let numberOfPayments = parseFloat(formData.mortgageLength) * 12;
-      let loanAmount = parseFloat(formData.price) - parseFloat(formData.downPayment);
-      let monthlyPayment = (loanAmount * monthlyInterest) / (1-(1+monthlyInterest)**(-1*numberOfPayments));
-      let totalMortgage = monthlyPayment * numberOfPayments;
-      let totalInterest = totalMortgage - loanAmount;
-      console.log('Monthly Mortgage', monthlyPayment);
-      console.log('Total Mortgage', totalMortgage);
-      console.log('Total Interest', totalInterest);
+      const mortgageInfo = mortgageAlgo(formData)
     }
   };
 
