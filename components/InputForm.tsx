@@ -44,7 +44,7 @@ const InputForm: React.FC<IInputFormProps> = ({ onSubmit }) => {
       let totalInterest = totalMortgage - loanAmount;
       console.log('Monthly Mortgage', monthlyPayment);
       console.log('Total Mortgage', totalMortgage);
-      console.log('Total Interest', TotalInterest);
+      console.log('Total Interest', totalInterest);
     }
   };
 
