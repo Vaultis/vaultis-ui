@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import { IInputFormProps } from '../model/props';
-import { mortgageAlgo } from '../utils/index';
+import { getMortgageInfo } from '../utils/index';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const InputForm: React.FC<IInputFormProps> = ({ onSubmit }) => {
@@ -36,7 +36,7 @@ const InputForm: React.FC<IInputFormProps> = ({ onSubmit }) => {
       console.error('Form validation errors:', validationErrors);
     } else {
       // TODO: Add mortgage calculation logic here
-      const mortgageInfo = mortgageAlgo(formData)
+      const mortgageInfo = getMortgageInfo(formData)
     }
   };
 
