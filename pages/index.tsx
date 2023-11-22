@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import InputForm from '../components/InputForm'
+import LoanBalanceChart from '../components/LoanBalanceChart'
 
 const Home: NextPage = () => {
   return (
@@ -14,9 +15,15 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <div className="bg-white p-8 rounded-md shadow-lg max-w-xl w-full">
-          <h1 className="text-xl font-semibold mb-6">Mortgage Calculator</h1>
-          <InputForm />
+        <div className="flex flex-col md:flex-row gap-8">
+          <div className="bg-white p-8 rounded-md shadow-lg max-w-xl w-1/2">
+            <h1 className="text-xl font-semibold mb-6">Mortgage Calculator</h1>
+            <InputForm />
+          </div>
+          <div className="bg-white p-8 rounded-md shadow-lg max-w-xl w-full md:w-1/2">
+            <h2 className="text-xl font-semibold mb-4">Loan Balance Over Time</h2>
+            <LoanBalanceChart startDate={new Date()} monthlyPayment={2400} totalLoan={560000} />
+          </div>
         </div>
       </main>
 
