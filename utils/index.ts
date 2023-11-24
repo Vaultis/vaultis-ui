@@ -1,4 +1,5 @@
 // utils/index.ts
+import dayjs from 'dayjs';
 import {Mortgage} from '../model/Mortgage';
 
 const YearlyMaintenanceRate = 0.03
@@ -10,9 +11,10 @@ export function getMortgageInfo(formData: any): Mortgage {
     const monthlyMortgage = getMonthlyMortgage(loanAmount, parseFloat(formData.interestRate), numberOfPayments);
     const totalMortgage = monthlyMortgage * numberOfPayments;
     const totalInterest = totalMortgage - loanAmount;
-    const monthlyPropTaxes = getMonthlyPropTaxes(formData.price, formData.taxes/100);
+    const monthlyPropTaxes = getMonthlyPropTaxes(formData.yearlyPropTax);
     const monthlyMaintenace = getMonthlyMaintenance(formData.price);
     const totalMonthlyCost = monthlyMortgage + monthlyPropTaxes + monthlyMaintenace
+    const lastPayment = getLastPayment(formData.start, numberOfPayments);
     const mortgageInfo: Mortgage = {
         monthlyMortgage: monthlyMortgage,
         totalLoan: loanAmount,
@@ -21,7 +23,7 @@ export function getMortgageInfo(formData: any): Mortgage {
         monthlyPropTaxes: monthlyPropTaxes,
         monthlyMaintenaceExpenses: monthlyMaintenace,
         totalMonthlyCost: totalMonthlyCost,
-        //ToDo lastPayment
+        lastPayment: lastPayment
     }
     return mortgageInfo
 }
@@ -31,10 +33,18 @@ function getMonthlyMortgage(loan: number, interestRate: number, numberOfPayments
     return (loan * monthlyInterest) / (1-(1+monthlyInterest)**(-1*numberOfPayments));
 }
 
-function getMonthlyPropTaxes(price: number, taxes: number): number {
-    return price * taxes / 12
+function getMonthlyPropTaxes(taxes: number): number {
+    return taxes / 12
 }
 
 function getMonthlyMaintenance(price: number): number {
     return price * YearlyMaintenanceRate / 12
+}
+
+function getLastPayment(start: string, numberOfPayments: number): Date{
+
+    const startDate = new Date(start)
+    const lastPaymentDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 1);
+    lastPaymentDate.setMonth(lastPaymentDate.getMonth() + numberOfPayments - 1);
+    return lastPaymentDate;
 }

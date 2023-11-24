@@ -6,5 +6,5 @@ export type Mortgage = {
     totalLoan: number;
     totalInterest: number;
     totalMortgage: number;
-    lastPayment ? : Date;
+    lastPayment : Date;
 }
