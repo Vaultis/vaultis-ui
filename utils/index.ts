@@ -1,5 +1,4 @@
 // utils/index.ts
-import dayjs from 'dayjs';
 import {Mortgage} from '../model/Mortgage';
 
 const YearlyMaintenanceRate = 0.03
@@ -42,7 +41,6 @@ function getMonthlyMaintenance(price: number): number {
 }
 
 function getLastPayment(start: string, numberOfPayments: number): Date{
-
     const startDate = new Date(start)
     const lastPaymentDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 1);
     lastPaymentDate.setMonth(lastPaymentDate.getMonth() + numberOfPayments - 1);
