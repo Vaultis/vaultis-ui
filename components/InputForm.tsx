@@ -35,10 +35,7 @@ const InputForm: React.FC = () => {
     if (validationErrors.length > 0) {
       console.error('Form validation errors:', validationErrors);
     } else {
-      // TODO: Add mortgage calculation logic here
-      console.log(formData.start)
-      const mortgageInfo = getMortgageInfo(formData)
-      console.log(mortgageInfo)
+      // const mortgageInfo = getMortgageInfo(formData)
     }
   };
 
