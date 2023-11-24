@@ -1,6 +1,7 @@
 // components/InputForm.tsx
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Tooltip from '@mui/material/Tooltip';
+import {getMortgageInfo} from '../utils/index';
 
 const InputForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -29,12 +30,12 @@ const InputForm: React.FC = () => {
         validationErrors.push(`${field} is required`);
       }
     });
+    
 
     if (validationErrors.length > 0) {
       console.error('Form validation errors:', validationErrors);
     } else {
-      // TODO: Add mortgage calculation logic here
-      console.log('Form submitted with data:', formData);
+      // const mortgageInfo = getMortgageInfo(formData)
     }
   };
 
