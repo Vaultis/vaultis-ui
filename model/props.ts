@@ -1,3 +1,5 @@
+import { Mortgage } from './Mortgage'
+
 export interface IFormData {
   price: string
   interestRate: string
@@ -10,5 +12,5 @@ export interface IFormData {
 }
 
 export interface IInputFormProps {
-  onSubmit: (formValues: IFormData) => void
+  onSubmit: (mortgageInfo: Mortgage) => void
 }

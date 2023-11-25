@@ -5,26 +5,15 @@ import styles from '../styles/Home.module.css'
 import InputForm from '../components/InputForm'
 import LoanBalanceChart from '../components/LoanBalanceChart'
 import { useState } from 'react'
-import { IFormData } from '../model/props'
+import { Mortgage } from '../model/Mortgage'
 
 
 
 const Home: NextPage = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [formData, setFormData] = useState<IFormData>({
-    price: '',
-    interestRate: '',
-    downPayment: '',
-    start: '',
-    yearlyPropTax: '',
-    mortgageLength: '',
-    monthlySalary: '',
-    monthlyExpenses: '',
-  });
+  const [mortgageInfo, setMortgageInfo] = useState<Mortgage>();
 
-  const handleSubmit = (formValues: IFormData) => {
-    // TODO: validate first
-    setFormData(formValues);
+  const handleSubmit = (mortgageInfo: Mortgage) => {
+    setMortgageInfo(mortgageInfo);
   }
   
   return (
@@ -43,7 +32,17 @@ const Home: NextPage = () => {
           </div>
           <div className="bg-white p-8 rounded-md shadow-lg max-w-xl w-full md:w-1/2">
             <h2 className="text-xl font-semibold mb-4">Loan Balance Over Time</h2>
-            <LoanBalanceChart startDate={new Date()} monthlyPayment={2400} totalLoan={560000} />
+            {
+              mortgageInfo &&
+              mortgageInfo.totalLoan &&
+              mortgageInfo.monthlyMortgage &&
+              <LoanBalanceChart
+                firstPaymentDate={mortgageInfo.firstPaymentDate}
+                lastPaymentDate={mortgageInfo.lastPayment}
+                monthlyPayment={mortgageInfo.monthlyMortgage}
+                totalLoan={mortgageInfo.totalLoan + mortgageInfo.totalInterest}
+              />
+            }
           </div>
         </div>
       </main>
