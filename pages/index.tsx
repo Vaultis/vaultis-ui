@@ -3,8 +3,19 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import InputForm from '../components/InputForm'
+import LoanBalanceChart from '../components/LoanBalanceChart'
+import { useState } from 'react'
+import { Mortgage } from '../model/Mortgage'
+
+
 
 const Home: NextPage = () => {
+  const [mortgageInfo, setMortgageInfo] = useState<Mortgage>();
+
+  const handleSubmit = (mortgageInfo: Mortgage) => {
+    setMortgageInfo(mortgageInfo);
+  }
+  
   return (
     <div className={styles.container}>
       <Head>
@@ -14,9 +25,25 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <div className="bg-white p-8 rounded-md shadow-lg max-w-xl w-full">
-          <h1 className="text-xl font-semibold mb-6">Mortgage Calculator</h1>
-          <InputForm />
+        <div className="flex flex-col md:flex-row gap-8">
+          <div className="bg-white p-8 rounded-md shadow-lg max-w-xl w-full md:w-1/2">
+            <h1 className="text-xl font-semibold mb-6">Mortgage Calculator</h1>
+            <InputForm onSubmit={handleSubmit} />
+          </div>
+          <div className="bg-white p-8 rounded-md shadow-lg max-w-xl w-full md:w-1/2">
+            <h2 className="text-xl font-semibold mb-4">Loan Balance Over Time</h2>
+            {
+              mortgageInfo &&
+              mortgageInfo.totalLoan &&
+              mortgageInfo.monthlyMortgage &&
+              <LoanBalanceChart
+                firstPaymentDate={mortgageInfo.firstPaymentDate}
+                lastPaymentDate={mortgageInfo.lastPayment}
+                monthlyPayment={mortgageInfo.monthlyMortgage}
+                totalLoan={mortgageInfo.totalLoan + mortgageInfo.totalInterest}
+              />
+            }
+          </div>
         </div>
       </main>
 
