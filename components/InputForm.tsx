@@ -1,8 +1,8 @@
-// components/InputForm.tsx
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Tooltip from '@mui/material/Tooltip';
+import { IInputFormProps } from '../model/props';
 
-const InputForm: React.FC = () => {
+const InputForm: React.FC<IInputFormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     price: '',
     interestRate: '',
@@ -34,6 +34,7 @@ const InputForm: React.FC = () => {
       console.error('Form validation errors:', validationErrors);
     } else {
       // TODO: Add mortgage calculation logic here
+      onSubmit(formData);
       console.log('Form submitted with data:', formData);
     }
   };

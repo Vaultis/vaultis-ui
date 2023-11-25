@@ -4,8 +4,29 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import InputForm from '../components/InputForm'
 import LoanBalanceChart from '../components/LoanBalanceChart'
+import { useState } from 'react'
+import { IFormData } from '../model/props'
+
+
 
 const Home: NextPage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [formData, setFormData] = useState<IFormData>({
+    price: '',
+    interestRate: '',
+    downPayment: '',
+    start: '',
+    yearlyPropTax: '',
+    mortgageLength: '',
+    monthlySalary: '',
+    monthlyExpenses: '',
+  });
+
+  const handleSubmit = (formValues: IFormData) => {
+    // TODO: validate first
+    setFormData(formValues);
+  }
+  
   return (
     <div className={styles.container}>
       <Head>
@@ -16,9 +37,9 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className="flex flex-col md:flex-row gap-8">
-          <div className="bg-white p-8 rounded-md shadow-lg max-w-xl w-1/2">
+          <div className="bg-white p-8 rounded-md shadow-lg max-w-xl w-full md:w-1/2">
             <h1 className="text-xl font-semibold mb-6">Mortgage Calculator</h1>
-            <InputForm />
+            <InputForm onSubmit={handleSubmit} />
           </div>
           <div className="bg-white p-8 rounded-md shadow-lg max-w-xl w-full md:w-1/2">
             <h2 className="text-xl font-semibold mb-4">Loan Balance Over Time</h2>
