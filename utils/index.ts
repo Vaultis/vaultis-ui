@@ -71,4 +71,29 @@ function getLastPayment(start: string, numberOfPayments: number): Date {
   return lastPaymentDate
 }
 
-export function getAffordability(formData: any): Affordability {}
+export function getAffordability(formData: any, mortgageInfo: Mortgage): Affordability {
+  const salaryMinusExpenses = formData.monthlySalary - formData.monthlyExpenses;
+  const affordable = getAffordable(salaryMinusExpenses, mortgageInfo.totalMonthlyCost);
+  const message = getMessage(salaryMinusExpenses, mortgageInfo.totalMonthlyCost);
+  const affordability: Affordability = {
+    affordable: affordable,
+    message: message
+  }
+  return affordability
+}
+
+function getAffordable(salaryMinusExpenses:number, costs:number): Boolean {
+  return salaryMinusExpenses >= costs
+}
+
+function getMessage(salaryMinusExpenses:number, costs:number): String {
+  if (salaryMinusExpenses - costs <= 0){
+    return "Cannot afford the property at all we recommend generating a minimum of " + -1*(salaryMinusExpenses-costs) + " in order to meet the minimum requirement to afford the property. Here are some possible solutions: finding a less expensive property, reduce expenses or increase income."
+  }
+  if ((salaryMinusExpenses-costs)/costs <0.2) {
+    return "You can afford but recommend ..."
+  }
+
+  return "You can definitly afford the house it is well within your means."
+
+}
