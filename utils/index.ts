@@ -1,4 +1,5 @@
 // utils/index.ts
+import { Affordability } from '../model/Affordability'
 import { Mortgage } from '../model/Mortgage'
 
 const YearlyMaintenanceRate = 0.03
@@ -69,3 +70,5 @@ function getLastPayment(start: string, numberOfPayments: number): Date {
   )
   return lastPaymentDate
 }
+
+export function getAffordability(formData: any): Affordability {}
