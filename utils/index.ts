@@ -88,10 +88,11 @@ function getAffordable(salaryMinusExpenses:number, costs:number): Boolean {
 
 function getMessage(salaryMinusExpenses:number, costs:number): String {
   if (salaryMinusExpenses - costs <= 0){
-    return "Cannot afford the property at all we recommend generating a minimum of " + -1*(salaryMinusExpenses-costs) + " in order to meet the minimum requirement to afford the property. Here are some possible solutions: finding a less expensive property, reduce expenses or increase income."
+    return "Cannot afford the property at all we recommend generating a minimum of " + (-1*(salaryMinusExpenses-costs)).toFixed(2) + " dollars per month in order to meet the minimum requirement to afford the property. Here are some possible solutions: finding a less expensive property, reduce expenses or increase income."
   }
   if ((salaryMinusExpenses-costs)/costs <0.2) {
-    return "You can afford but recommend ..."
+    const extraAmount = costs*0.2 - (salaryMinusExpenses - costs);
+    return "You can afford the property but we recommend generating an additional " + extraAmount.toFixed(2) + " dollars per month in order to comfortably afford the house. Here are some recommendations: reduce expenses or increase income."
   }
 
   return "You can definitly afford the house it is well within your means."
