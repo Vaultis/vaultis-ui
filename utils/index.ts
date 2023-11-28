@@ -73,13 +73,10 @@ function getLastPayment(start: string, numberOfPayments: number): Date {
 
 export function getAffordability(formData: any, mortgageInfo: Mortgage): Affordability {
   const salaryMinusExpenses = formData.monthlySalary - formData.monthlyExpenses;
-  const affordable = getAffordable(salaryMinusExpenses, mortgageInfo.totalMonthlyCost);
-  const message = getMessage(salaryMinusExpenses, mortgageInfo.totalMonthlyCost);
-  const affordability: Affordability = {
-    affordable: affordable,
-    message: message
-  }
-  return affordability
+  return {
+    affordable: getAffordable(salaryMinusExpenses, mortgageInfo.totalMonthlyCost),
+    message: getMessage(salaryMinusExpenses, mortgageInfo.totalMonthlyCost)
+  } as Affordability
 }
 
 function getAffordable(salaryMinusExpenses:number, costs:number): Boolean {
