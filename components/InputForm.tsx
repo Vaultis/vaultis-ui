@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import { IInputFormProps } from '../model/props';
-import { getMortgageInfo } from '../utils/index';
+import { getMortgageInfo, getAffordability } from '../utils/index';
 
 const InputForm: React.FC<IInputFormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -35,7 +35,9 @@ const InputForm: React.FC<IInputFormProps> = ({ onSubmit }) => {
     if (validationErrors.length > 0) {
       console.error('Form validation errors:', validationErrors);
     } else {
-      const mortgageInfo = getMortgageInfo(formData)
+      const mortgageInfo = getMortgageInfo(formData);
+      const affordability = getAffordability(formData, mortgageInfo);
+      console.log(affordability)
       console.log('Mortgage info:', mortgageInfo);
       onSubmit(mortgageInfo);
     }

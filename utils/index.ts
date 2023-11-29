@@ -1,4 +1,5 @@
 // utils/index.ts
+import { Affordability } from '../model/Affordability'
 import { Mortgage } from '../model/Mortgage'
 
 const YearlyMaintenanceRate = 0.03
@@ -68,4 +69,25 @@ function getLastPayment(start: string, numberOfPayments: number): Date {
     1
   )
   return lastPaymentDate
+}
+
+export function getAffordability(formData: any, mortgageInfo: Mortgage): Affordability {
+  const salaryMinusExpenses = formData.monthlySalary - formData.monthlyExpenses;
+  return {
+    affordable: salaryMinusExpenses >= mortgageInfo.totalMonthlyCost,
+    message: getMessage(salaryMinusExpenses, mortgageInfo.totalMonthlyCost)
+  } as Affordability
+}
+
+function getMessage(salaryMinusExpenses:number, costs:number): String {
+  if (salaryMinusExpenses - costs <= 0){
+    return "Cannot afford the property at all, we recommend generating a minimum of " + (-1*(salaryMinusExpenses-costs)).toFixed(2) + " dollars per month in order to meet the minimum requirement to afford the property. Here are some possible solutions: finding a less expensive property, reduce expenses or increase income."
+  }
+  if ((salaryMinusExpenses-costs)/costs <0.2) {
+    const extraAmount = costs*0.2 - (salaryMinusExpenses - costs);
+    return "You can afford the property, but we recommend generating an additional " + extraAmount.toFixed(2) + " dollars per month in order to comfortably afford the house. Here are some recommendations: reduce expenses or increase income."
+  }
+
+  return "You can definitly afford the property, it is well within your budget."
+
 }
