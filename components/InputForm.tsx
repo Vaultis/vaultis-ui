@@ -37,8 +37,6 @@ const InputForm: React.FC<IInputFormProps> = ({ onSubmit }) => {
     } else {
       const mortgageInfo = getMortgageInfo(formData);
       const affordability = getAffordability(formData, mortgageInfo);
-      console.log(affordability)
-      console.log('Mortgage info:', mortgageInfo);
       onSubmit(mortgageInfo, affordability);
     }
   };
