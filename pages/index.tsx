@@ -21,13 +21,6 @@ const Home: NextPage = () => {
     setAffordability(affordability);
   }
 
-
-  // const titleColor = affordability.isAffordable
-  //   ? affordability.isComfortablyAffordable
-  //     ? 'text-green-500'
-  //     : 'text-yellow-500'
-  //   : 'text-red-500';
-
   const getTitleColor = () => {
     if (affordability === undefined) return '';
     
@@ -69,6 +62,30 @@ const Home: NextPage = () => {
     } else if (affordability.missingAffordability) {
       return `Based on your current income and expenses, you cannot afford this property. You need a minimum of ${formatPrice(affordability.missingAffordability)} more per month to cover the costs of this property.`;
     }
+  }
+
+  const getRecommendations = () => {
+    if (affordability === undefined) return [];
+
+    const recommendations: string[] = [];
+
+    if (affordability.isAffordable) {
+      if (affordability.isComfortablyAffordable) {
+        recommendations.push('You reach out to your bank to get a pre-approval for a mortgage');
+        recommendations.push('You express interest in the property and start the process of buying it');
+        recommendations.push('You may wish to continue saving for a down payment if you do not feelr eady to buy yet');
+      } else if (affordability.recommendedAdditionalAffordability) {
+        recommendations.push('You may consider looking for ways to generate additional income');
+        recommendations.push('You may consider looking for ways to reduce your expenses');
+        recommendations.push('You may consider looking for a cheaper property');
+      }
+    } else {
+      recommendations.push('You may consider looking for ways to generate additional income');
+      recommendations.push('You may consider looking for ways to reduce your expenses');
+      recommendations.push('You may consider looking for a cheaper property');
+    }
+
+    return recommendations;
   }
 
   const getPieChartData = () => {
@@ -150,6 +167,11 @@ const Home: NextPage = () => {
               <div className='affordable-message'>
                 <h2 className={`text-xl ${getTitleColor()} font-bold`}>{getTitle()}</h2>
                 <p className="mt-2">{getDescription()}</p>
+                <ul className="list-disc list-inside mt-4">
+                  {getRecommendations().map((recommendation, index) => (
+                    <li key={index}>{recommendation}</li>
+                  ))}
+                </ul>
               </div>
 
               <div className='mt-8'>
