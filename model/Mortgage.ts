@@ -8,4 +8,6 @@ export type Mortgage = {
   totalMortgage: number
   lastPayment: Date
   firstPaymentDate: Date
+  other: number
+  savings: number
 }
