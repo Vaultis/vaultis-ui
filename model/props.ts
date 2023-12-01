@@ -1,3 +1,4 @@
+import { Affordability } from './Affordability'
 import { Mortgage } from './Mortgage'
 
 export interface IFormData {
@@ -12,5 +13,5 @@ export interface IFormData {
 }
 
 export interface IInputFormProps {
-  onSubmit: (mortgageInfo: Mortgage) => void
+  onSubmit: (mortgageInfo: Mortgage, affordability: Affordability) => void
 }

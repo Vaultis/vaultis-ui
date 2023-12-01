@@ -37,6 +37,9 @@ export function getMortgageInfo(formData: any): Mortgage {
       startDate.getMonth() + 1,
       1
     ),
+    other: formData.monthlyExpenses,
+    savings:
+      formData.monthlySalary - totalMonthlyCost - formData.monthlyExpenses,
   }
   return mortgageInfo
 }
@@ -71,23 +74,39 @@ function getLastPayment(start: string, numberOfPayments: number): Date {
   return lastPaymentDate
 }
 
-export function getAffordability(formData: any, mortgageInfo: Mortgage): Affordability {
-  const salaryMinusExpenses = formData.monthlySalary - formData.monthlyExpenses;
-  return {
-    affordable: salaryMinusExpenses >= mortgageInfo.totalMonthlyCost,
-    message: getMessage(salaryMinusExpenses, mortgageInfo.totalMonthlyCost)
-  } as Affordability
+export function getAffordability(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formData: any,
+  mortgageInfo: Mortgage
+): Affordability {
+  const disposableIncome = formData.monthlySalary - formData.monthlyExpenses
+
+  const projectedMonthlyCosts =
+    mortgageInfo.totalMonthlyCost + formData.monthlyExpenses
+  const projectedDisposableMonthlyIncome =
+    disposableIncome - projectedMonthlyCosts
+
+  const affordability: Affordability = {
+    isAffordable: projectedDisposableMonthlyIncome >= 0,
+    isComfortablyAffordable:
+      projectedDisposableMonthlyIncome / formData.monthlySalary >= 0.2,
+  }
+
+  if (!affordability.isAffordable) {
+    affordability.missingAffordability = -1 * projectedDisposableMonthlyIncome
+  }
+
+  if (!affordability.isComfortablyAffordable) {
+    affordability.recommendedAdditionalAffordability =
+      formData.monthlySalary * 0.2 - projectedDisposableMonthlyIncome
+  }
+
+  return affordability
 }
 
-function getMessage(salaryMinusExpenses:number, costs:number): String {
-  if (salaryMinusExpenses - costs <= 0){
-    return "Cannot afford the property at all, we recommend generating a minimum of " + (-1*(salaryMinusExpenses-costs)).toFixed(2) + " dollars per month in order to meet the minimum requirement to afford the property. Here are some possible solutions: finding a less expensive property, reduce expenses or increase income."
-  }
-  if ((salaryMinusExpenses-costs)/costs <0.2) {
-    const extraAmount = costs*0.2 - (salaryMinusExpenses - costs);
-    return "You can afford the property, but we recommend generating an additional " + extraAmount.toFixed(2) + " dollars per month in order to comfortably afford the house. Here are some recommendations: reduce expenses or increase income."
-  }
-
-  return "You can definitly afford the property, it is well within your budget."
-
+export function formatPrice(price: number): string {
+  return price.toLocaleString('en-CA', {
+    style: 'currency',
+    currency: 'CAD',
+  })
 }
